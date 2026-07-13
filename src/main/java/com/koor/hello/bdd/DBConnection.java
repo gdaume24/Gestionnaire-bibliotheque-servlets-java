@@ -12,9 +12,9 @@ public class DBConnection {
 			if (connection == null || connection.isClosed()) {
 				try {
 			        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); // 👈 obligatoire sur Tomcat
-			    	String URL = "jdbc:sqlserver://localhost:1433;databaseName=BibliothequeDB;encrypt=true;trustServerCertificate=true";
-			    	String USERNAME = "SA";
-			    	String PASSWORD = "CHANGE_ME";
+			    	String URL = System.getenv().getOrDefault("DB_URL", "jdbc:sqlserver://localhost:1433;databaseName=BibliothequeDB;encrypt=true;trustServerCertificate=true");
+			    	String USERNAME = System.getenv().getOrDefault("DB_USERNAME", "SA");
+			    	String PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", "");
 
 					connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			        System.out.println("✅ Connexion à la base OK !");
